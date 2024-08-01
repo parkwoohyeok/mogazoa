@@ -1,0 +1,26 @@
+@import url('./reset.css');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body,
+  #__next {
+    height: 100%;
+  }
+
+  html {
+    font-size: 62.5%;
+  }
+
+  body {
+    font-size: 1.6rem;
+    font-family: 'Pretendard';
+    font-weight: 400;
+  }
+
+  input {
+    outline: none;
+  }}
