@@ -2,6 +2,8 @@ import { FormProps } from "@/types/formTypes";
 import useShowPassword from "@/hooks/useShowPassword";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import InputComponent from "../../InputComponent";
+import ButtonComponent from "../../ButtonComponent";
 
 const SignupForm: React.FC<FormProps> = ({ schema, onSubmit }) => {
   const {
@@ -20,69 +22,64 @@ const SignupForm: React.FC<FormProps> = ({ schema, onSubmit }) => {
     useShowPassword();
 
   return (
-    <form
-      className="flex flex-col justify-between"
-      onSubmit={handleSubmit(onSubmit)}
-    >
+    <form className="flex flex-col gap-30" onSubmit={handleSubmit(onSubmit)}>
       <div>
-        <label>이메일</label>
-        <input
+        <InputComponent
           type="email"
+          label="이메일"
           placeholder="이메일을 입력해주세요."
-          {...register("email")}
+          register={register("email")}
           onBlur={() => handleBlur("email")}
+          errorMessage={errors.email?.message?.toString()}
         />
-        {errors.email && <p>{errors.email?.message?.toString()}</p>}
       </div>
       <div>
-        <label>닉네임</label>
-        <input
+        <InputComponent
           type="text"
+          label="닉네임"
           placeholder="닉네임을 입력해주세요(최대20자)."
-          {...register("nickname")}
           onBlur={() => handleBlur("nickname")}
+          register={register("nickname")}
+          errorMessage={errors.nickname?.message?.toString()}
         />
-        {errors.nickname && <p>{errors.nickname.message?.toString()}</p>}
       </div>
       <div>
-        <label>비밀번호</label>
-        <div style={{ position: "relative" }}>
-          <input
+        <div className="relative">
+          <InputComponent
             type={showPassword ? "text" : "password"}
             placeholder="비밀번호를 입력해주세요."
-            {...register("password")}
             onBlur={() => handleBlur("password")}
+            label="비밀번호"
+            register={register("password")}
+            errorMessage={errors.password?.message?.toString()}
           />
           <span
             onClick={() => togglePasswordVisibility("password")}
-            style={{ position: "absolute", right: "10px", cursor: "pointer" }}
+            className="absolute right-10 top-30 cursor-pointer"
           >
             {showPassword ? "👁️" : "👁️‍🗨️"}
           </span>
         </div>
-        {errors.password && <p>{errors.password.message?.toString()}</p>}
       </div>
       <div>
-        <label>비밀번호 확인</label>
-        <div style={{ position: "relative" }}>
-          <input
+        <div className="relative">
+          <InputComponent
             type={showPasswordConfirm ? "text" : "password"}
             placeholder="비밀번호를 한번 더 입력해주세요."
-            {...register("passwordConfirm")}
+            register={register("passwordConfirm")}
             onBlur={() => handleBlur("passwordConfirm")}
+            label="비밀번호확인"
+            errorMessage={errors.passwordConfirm?.message?.toString()}
           />
           <span
             onClick={() => togglePasswordVisibility("passwordConfirm")}
-            style={{ position: "absolute", right: "10px", cursor: "pointer" }}
+            className="absolute right-10 top-30 cursor-pointer"
           >
             {showPasswordConfirm ? "👁️" : "👁️‍🗨️"}
           </span>
         </div>
-        {errors.passwordConfirm && (
-          <p>{errors.passwordConfirm.message?.toString()}</p>
-        )}
       </div>
-      <button type="submit">가입하기</button>
+      <ButtonComponent text="가입하기" />
     </form>
   );
 };
