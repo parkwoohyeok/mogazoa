@@ -1,14 +1,7 @@
-import {
-  UseFormRegister,
-  FieldValues,
-  FieldErrors,
-  UseFormHandleSubmit,
-} from "react-hook-form";
+import { FieldValues } from "react-hook-form";
+import { AnyObjectSchema } from "yup";
 
 export type FormProps = {
-  register: UseFormRegister<FieldValues>;
-  handleSubmit: UseFormHandleSubmit<FieldValues>;
-  errors: FieldErrors;
-  handleBlur: (field: string) => Promise<void>;
+  schema: AnyObjectSchema;
   onSubmit: (data: FieldValues) => void;
 };

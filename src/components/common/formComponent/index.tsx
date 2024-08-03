@@ -1,4 +1,5 @@
-import { FieldValues } from "react-hook-form";
+import { Toaster } from "react-hot-toast";
+import { openToast } from "@/utils/openToast";
 import useFormComponent from "@/hooks/useFormComponent";
 import { signupSchema, signinSchema } from "@/utils/validationSchemas";
 import { setCookie } from "@/utils/cookies";
@@ -17,7 +18,7 @@ const FormComponent: React.FC<FormComponentProps> = ({ formType }) => {
   const Form = useFormComponent(formType);
   const schema = formSchemas[formType];
   const router = useRouter();
-  const onSubmit = async (data: FieldValues) => {
+  const onSubmit = async (data: any) => {
     if (formType === "signup") {
       try {
         const response = await signPageRequestInstance.signUp(data);
@@ -25,23 +26,24 @@ const FormComponent: React.FC<FormComponentProps> = ({ formType }) => {
           const userData = response.data;
           const accessToken = userData.accessToken;
           setCookie("accessToken", accessToken);
-          router.push("/");
+          openToast.success("로그인에 성공했습니다.");
+          setTimeout(() => router.push("/"), 1000);
         }
       } catch (error: any) {
         console.log(error?.response?.data.message);
-        if (
-          error?.response?.status === 400 ||
-          error?.response?.status === 404
-        ) {
-          //   OnModal(error.response.data.message);
-        }
+        openToast.error(error?.response?.data.message);
       }
     } else if (formType === "signin") {
       console.log("Signin Form Data:", data);
     }
   };
 
-  return Form ? <Form schema={schema} onSubmit={onSubmit} /> : null;
+  return (
+    <>
+      <Toaster position="bottom-center" />
+      {Form ? <Form schema={schema} onSubmit={onSubmit} /> : null};
+    </>
+  );
 };
 
 export default FormComponent;
