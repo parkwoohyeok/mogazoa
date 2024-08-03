@@ -4,8 +4,12 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import InputComponent from "../../InputComponent";
 import ButtonComponent from "../../ButtonComponent";
+import Image from "next/image";
 
 const SignupForm: React.FC<FormProps> = ({ schema, onSubmit }) => {
+  const eyeOn = "/images/eyeOn.png";
+  const eyeOff = "/images/eyeOff.png";
+
   const {
     register,
     handleSubmit,
@@ -55,9 +59,13 @@ const SignupForm: React.FC<FormProps> = ({ schema, onSubmit }) => {
           />
           <span
             onClick={() => togglePasswordVisibility("password")}
-            className="absolute right-10 top-30 cursor-pointer"
+            className="absolute right-10 top-35 cursor-pointer"
           >
-            {showPassword ? "👁️" : "👁️‍🗨️"}
+            {showPassword ? (
+              <Image src={eyeOn} width={20} height={20} alt="eyeOn" />
+            ) : (
+              <Image src={eyeOff} width={20} height={20} alt="eyeOff" />
+            )}
           </span>
         </div>
       </div>
@@ -73,9 +81,13 @@ const SignupForm: React.FC<FormProps> = ({ schema, onSubmit }) => {
           />
           <span
             onClick={() => togglePasswordVisibility("passwordConfirm")}
-            className="absolute right-10 top-30 cursor-pointer"
+            className="absolute right-10 top-35 cursor-pointer"
           >
-            {showPasswordConfirm ? "👁️" : "👁️‍🗨️"}
+            {showPasswordConfirm ? (
+              <Image src={eyeOn} width={20} height={20} alt="eyeOn" />
+            ) : (
+              <Image src={eyeOff} width={20} height={20} alt="eyeOff" />
+            )}
           </span>
         </div>
       </div>
