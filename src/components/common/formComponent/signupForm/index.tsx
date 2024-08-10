@@ -55,7 +55,7 @@ const SignupForm: React.FC<FormProps> = ({ schema, onSubmit }) => {
           errorMessage={errors.password?.message?.toString()}
         />
         <span
-          onClick={() => togglePasswordVisibility("password")}
+          onClick={() => togglePasswordVisibility("passwordInput")}
           className="absolute right-10 top-40 cursor-pointer"
         >
           {showPassword ? (
@@ -76,7 +76,7 @@ const SignupForm: React.FC<FormProps> = ({ schema, onSubmit }) => {
           errorMessage={errors.passwordConfirm?.message?.toString()}
         />
         <span
-          onClick={() => togglePasswordVisibility("passwordConfirm")}
+          onClick={() => togglePasswordVisibility("passwordConfirmInput")}
           className="absolute right-10 top-40 cursor-pointer"
         >
           {showPasswordConfirm ? (

@@ -1,16 +1,25 @@
 import { useState } from "react";
 
 const useShowPassword = () => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
+  const [showPassword, setShowPassword] = useState({
+    passwordInput: false,
+    passwordConfirmInput: false,
+  });
 
-  const togglePasswordVisibility = (id: string) => {
-    if (id === "password") {
-      setShowPassword(!showPassword);
-    } else setShowPasswordConfirm(!showPasswordConfirm);
+  const togglePasswordVisibility = (
+    id: "passwordInput" | "passwordConfirmInput"
+  ) => {
+    setShowPassword((prevState) => ({
+      ...prevState,
+      [id]: !prevState[id],
+    }));
   };
 
-  return { showPassword, showPasswordConfirm, togglePasswordVisibility };
+  return {
+    showPassword: showPassword.passwordInput,
+    showPasswordConfirm: showPassword.passwordConfirmInput,
+    togglePasswordVisibility,
+  };
 };
 
 export default useShowPassword;
