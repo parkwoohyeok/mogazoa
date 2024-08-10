@@ -2,7 +2,7 @@ import React from "react";
 import { UseFormRegisterReturn } from "react-hook-form";
 
 type InputProps = {
-  label: string;
+  label?: string;
   type: string;
   placeholder: string;
   onBlur: () => void;
@@ -11,7 +11,7 @@ type InputProps = {
 };
 
 const InputComponent = ({
-  label,
+  label = undefined,
   placeholder,
   type,
   onBlur,
@@ -20,10 +20,12 @@ const InputComponent = ({
 }: InputProps) => {
   return (
     <label className="flex flex-col gap-2">
-      <span className="text-white text-12">{label}</span>
+      {label && <span className="text-white text-12 mb-3">{label}</span>}
       <input
         placeholder={placeholder}
-        className="border-1 border-[#353542] bg-[#252530] rounded-s p-5 h-50 text-white"
+        className={`border-1 rounded-s p-5 h-50 text-white bg-[#252530] ${
+          errorMessage ? "border-red" : "border-[#353542]"
+        } focus:border-blue`}
         type={type}
         {...register}
         onBlur={onBlur}
