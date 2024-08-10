@@ -91,7 +91,7 @@ const SignupForm: React.FC<FormProps> = ({ schema, onSubmit }) => {
           </span>
         </div>
       </div>
-      <ButtonComponent text="가입하기" />
+      <ButtonComponent type="primary">가입하기</ButtonComponent>
     </form>
   );
 };
